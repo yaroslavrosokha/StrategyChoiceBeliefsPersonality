@@ -1,0 +1,35 @@
+{% extends "SCP02_Personality/myPage.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Questionnaire and Test
+{% endblock %}
+
+{% block content %}
+    <div class="card bg-light instructions">
+    <div class="card-body">
+        <div style="position:relative;left: 25%;width: 50%;background-color: #ffffff">
+    <p align="justify">Before we start the experiment, you will be asked to complete a questionnaire and a test.</p>
+
+    <p align="justify">
+        The questionnaire is made up of 52 questions. You will have 6 minutes to complete the questionnaire.
+    </p>
+
+    <p align="justify">
+        The top right-hand corner of the screen will display the time remaining.
+    </p>
+
+    <p align="justify">
+        <b>The answers you give in the questionnaire and in the test will not affect the experiment in any way.</b>
+    </p>
+</div>
+
+    <p style="text-align: center"><br/>
+        <button class="otree-btn-next btn btn-primary" id="NextButton" style="display:inline-block;">Begin Questionnaire</button>
+    </p>
+
+    </div>
+
+    </div>
+
+{% endblock %}

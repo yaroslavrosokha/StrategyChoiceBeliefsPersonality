@@ -1,0 +1,53 @@
+{% extends "SCP01_Introduction/myPage.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Welcome!
+{% endblock %}
+
+{% block content %}
+    <div class="card bg-light instructions">
+    <div class="card-body">
+    <p align="justify">Today's experiment will last about {{ Constants.duration }} minutes.</p>
+
+    <p align="justify">
+        You will be paid a show-up fee of ${{ Constants.min_payment }} together with any money you accumulate during this experiment.
+        The amount of money you accumulate will depend partly on your actions and partly on the actions of other participants.
+        This money will be paid at the end of the experiment in private and in cash.
+    </p>
+
+    <p align="justify">
+        It is important that during the experiment you remain <b>silent</b>.
+        If you have a question or need assistance of any kind, please <b>raise your hand,
+        but do not speak</b> - and an experiment administrator will
+        come to you, and you may then whisper your question.
+    </p>
+
+    <p align="justify">
+        In addition, please <b>turn off your cell phones and
+        put them away now</b>. Please do not use or place on your desk any personal items,
+        including pens, paper, phones etc. Please do not look into anyone else’s booth at any time.
+    </p>
+
+    <p align="justify">
+        Anybody that breaks these rules will be asked to leave.
+    </p>
+
+
+        <strong style="color: blue">Agenda:</strong>
+        <ul>
+        <li>Questionnaire and test</li>
+        <li>Experimental Instructions</li>
+        <li>Experiment</li>
+        </ul>
+
+    </p>
+            <p style="text-align: center"><br/>
+                <button class="otree-btn-next btn btn-primary" id="NextButton" style="display:inline-block;">Next</button>
+            </p>
+
+    </div>
+
+    </div>
+
+{% endblock %}
