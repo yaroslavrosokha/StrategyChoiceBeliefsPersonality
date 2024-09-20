@@ -1,0 +1,98 @@
+{% extends "SCP04_PayoffsInstructions/myPage.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    <div class="row">
+        <div class="column" style="background-color:white;">
+            How Matches Work
+        </div>
+        <div class="column" style="background-color:white;">
+            Choices and Payoffs
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="column" style="background-color:white;">
+
+            <p>The experiment is made up of <strong style="color: red">25 matches</strong>. </p>
+            <p>At the start of each match you will be randomly paired with another participant in this room.</p>
+            <p>You will then play a number of rounds with that participant (this is what we call a "match").</p>
+{#            Your payoffs in the match will only depend on the choices you make and the choices that#}
+{#            the participant that you are matched with make in the match.#}
+            <p>Each match will last for a random number of <strong style="color: red">rounds</strong>: </p>
+{#                The number of rounds in#}
+{#            each match will be determined randomly using the following procedure:</li>#}
+            <ul>
+                <li>At the end of each round the computer will roll a four-sided fair dice.</li>
+                <li>If the computer rolls a 1, 2, or 3, then the match continues for at least one more round (75% probability).</li>
+                <li>If the computer rolls a 4, then the match ends (25% probability).</li>
+            </ul>
+
+        <p>When the match ends, you will again be randomly paired with another participant for the next match. </p>
+
+    </div>
+<div class="column" style="background-color:white;">
+
+    <p>In each round of a match, you will choose A or B. The participant you are matched with will also choose A or B. </p>
+    <p>The table below describes the payoffs from the four pairs of choices that are possible in each round of a match.</p>
+    <p>These payoffs are in <strong style="color: red">points</strong>.</p><br/>
+
+    <div class="payoffbox" id="id_payoffbox">
+            <div class="myChoiceLabel" style="top: 0px;width: 220px;">My Choice in Round X</div>
+            <div class="otherChoiceLabel" style="top: 50px;width: 220px;">Other's Choice in Round X</div>
+            <div class="myChoiceLabel"  style="width: 220px;">My Payoff in Round X</div>
+            <div class="otherChoiceLabel" style="width: 220px;">Other's Payoff in Round X</div>
+
+            <div class="payoffDetail" style="top: 0px;left: 230px;background-color: #f9ff87">A</div>
+            <div class="payoffDetail" style="top: 50px;left: 230px;background-color: #f9ff87">A</div>
+
+            <div class="payoffDetail" style="top: 0px;left: 290px;background-color: #f9ff87">A</div>
+            <div class="payoffDetail" style="top: 50px;left: 290px;background-color: #8ec9ff">B</div>
+
+            <div class="payoffDetail" style="top: 0px;left: 350px;background-color: #8ec9ff">B</div>
+            <div class="payoffDetail" style="top: 50px;left: 350px;background-color: #f9ff87">A</div>
+
+            <div class="payoffDetail" style="top: 0px;left: 410px;background-color: #8ec9ff">B</div>
+            <div class="payoffDetail" style="top: 50px;left: 410px;background-color: #8ec9ff">B</div>
+
+
+            <div class="payoffDetail" style="top: 100px;left: 230px">{{ R }}</div>
+            <div class="payoffDetail" style="top: 150px;left: 230px">{{ R }}</div>
+
+            <div class="payoffDetail" style="top: 100px;left: 290px">12</div>
+            <div class="payoffDetail" style="top: 150px;left: 290px">50</div>
+
+            <div class="payoffDetail" style="top: 100px;left: 350px">50</div>
+            <div class="payoffDetail" style="top: 150px;left: 350px">12</div>
+
+            <div class="payoffDetail" style="top: 100px;left: 410px">25</div>
+            <div class="payoffDetail" style="top: 150px;left: 410px">25</div>
+    </div>
+
+    <p>In words:</p>
+    <ul>
+            <li>If you choose A, and the participant you are matched with chooses A, then
+                your payoff for the round will be {{ R }} points, and the other's payoff will be {{ R }} points.</li>
+            <li>If you choose A, and the participant you are matched with chooses B, then
+                    your payoff for the round will be 12 points, and the other's payoff will be 50 points.</li>
+            <li>If you choose B, and the participant you are matched with chooses A, then
+                    your payoff for the round will be 50 points, and the other's payoff will be 12 points.</li>
+            <li>If you choose B, and the participant you are matched with chooses B, then
+                    your payoff for the round will be 25 points, and the other's payoff will be 25 points.</li>
+    </ul>
+
+          <p><strong style="color: red">At the end of the experiment, your total points will be converted into
+              cash at the exchange rate of {{ PointsPerDollar }} points = $1. In addition, you will be paid your show-up fee of ${{ ShowUpFee }}.</strong></p>
+
+
+</div>
+
+</div>
+
+    <p style="text-align: center"><br/><br/>
+                <button class="otree-btn-next btn btn-primary" id="NextButton" style="display:inline-block;">Next</button>
+    </p>
+
+{% endblock %}

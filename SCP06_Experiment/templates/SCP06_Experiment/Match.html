@@ -1,0 +1,143 @@
+{% extends "SCP06_Experiment/myPage.html" %}
+{% load staticfiles otree %}
+
+
+{% block scripts %}
+
+    <!-- define a script -->
+    <script>
+
+
+    MyVariables.chosen1 = {{ player.myRow|json }};
+    highlightRow('tabA',parseInt({{ player.myRow|json }}));
+    for(var i=1;i<=10;i++){
+        disableButton("tab1_"+i.toFixed(0));
+    }
+
+    simulateGame();
+
+    </script>
+
+{% endblock %}
+
+
+{% block title %}
+
+    Match #{{ player.round_number }} of {{ Constants.num_rounds }}
+
+{% endblock %}
+
+{% block content %}
+
+
+
+    <div class="row">
+        <div class="column" style="background-color:white;">
+
+            <table class="table" id="tabA">
+                <tr style="background-color: #eaffeb">
+                    <td width="30px" style="font-weight:bold; vertical-align: middle" >Plans</td>
+                    <td align="center" id="id_myPlan"></td>
+                    <td width="75px" style="text-align: center">My Plan</td>
+
+                </tr>
+                {% for number,strategy in strategies %}
+                <tr>
+                    <td align="center" style="font-weight: bold">#{{ number }}</td>
+                    <td align="center"><strong style="color: #000000; font-size: 16px; font-weight: normal"> {{ strategy }}</strong></td>
+                    <td style="vertical-align: middle">
+                        <button class="otree-btn-next btn btn-primary" id="tab1_{{ number }}" type="button"
+                                style="height: 25px; line-height: 19px; padding: 3px; background-color: #1e8f27; border-color: #1e8f27"
+                                onclick="">Select</button>
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr style="background-color: #eaffeb">
+                    <td width="30px" style="font-weight:bold; vertical-align: middle" ></td>
+                    <td align="center"></td>
+                    <td width="75px" style="text-align: center"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="column" style="background-color:white;">
+            <p style="text-align: center">The table below describes the payoffs from the four pairs of choices that are possible in each round of a match.
+            </p>
+            <div class="payoffbox" id="id_payoffbox">
+                <div class="myChoiceLabel" style="top: 0px;width: 220px;">My Choice in Round X</div>
+                <div class="otherChoiceLabel" style="top: 50px;width: 220px;">Other's Choice in Round X</div>
+                <div class="myChoiceLabel"  style="width: 220px;">My Payoff in Round X</div>
+                <div class="otherChoiceLabel" style="width: 220px;">Other's Payoff in Round X</div>
+
+                <div class="payoffDetail" style="top: 0px;left: 230px;background-color: #f9ff87">A</div>
+                <div class="payoffDetail" style="top: 50px;left: 230px;background-color: #f9ff87">A</div>
+
+                <div class="payoffDetail" style="top: 0px;left: 290px;background-color: #f9ff87">A</div>
+                <div class="payoffDetail" style="top: 50px;left: 290px;background-color: #8ec9ff">B</div>
+
+                <div class="payoffDetail" style="top: 0px;left: 350px;background-color: #8ec9ff">B</div>
+                <div class="payoffDetail" style="top: 50px;left: 350px;background-color: #f9ff87">A</div>
+
+                <div class="payoffDetail" style="top: 0px;left: 410px;background-color: #8ec9ff">B</div>
+                <div class="payoffDetail" style="top: 50px;left: 410px;background-color: #8ec9ff">B</div>
+
+
+                <div class="payoffDetail" style="top: 100px;left: 230px">{{ R }}</div>
+                <div class="payoffDetail" style="top: 150px;left: 230px">{{ R }}</div>
+
+                <div class="payoffDetail" style="top: 100px;left: 290px">12</div>
+                <div class="payoffDetail" style="top: 150px;left: 290px">50</div>
+
+                <div class="payoffDetail" style="top: 100px;left: 350px">50</div>
+                <div class="payoffDetail" style="top: 150px;left: 350px">12</div>
+
+                <div class="payoffDetail" style="top: 100px;left: 410px">25</div>
+                <div class="payoffDetail" style="top: 150px;left: 410px">25</div>
+            </div>
+            <br />
+
+            <p>
+                Remember that at the end of each round the computer rolls a four-sided fair dice. The match ends when the computer rolls a 4.
+            </p>
+
+
+            <p style="text-align: center">
+            My Plan: <strong id="myPlan" style="background-color: yellow">--please select--</strong>
+            </p>
+
+             <div class="outerbox" id="id_outerbox" style="display:inline-block;">
+                <div class="randomNumLabel">Dice Roll</div>
+                <div class="periodLabel">Round</div>
+                <div class="myChoiceLabel">My Choice</div>
+                <div class="otherChoiceLabel">Other's Choice</div>
+                <div class="myPayoffLabel">My Payoff</div>
+                <div class="otherPayoffLabel">Other's Payoff</div>
+                <div class="scrollLabel" id="scrollLabel">Scroll Bar</div>
+
+                <div class="innerbox" id="id_innerbox"></div>
+            </div>
+
+
+             <p style="text-align: left;display: none" id="matchSummary">
+                 <strong style="font-weight: normal; text-decoration: underline;">Match # {{ player.round_number }} Summary</strong> <br/>
+             Match duration: <strong id="summaryRounds">X</strong> rounds <br/>
+             My total payoff: <strong id="summaryMyPayoff">X</strong> points<br/>
+             Other's total payoff: <strong id="summaryOtherPayoff">X</strong> points<br/>
+             </p>
+
+            <p style="text-align: center"><br/>
+            <button class="otree-btn-next btn btn-primary" id="NextButton" style="display:none;">Next</button>
+            </p>
+        </div>
+
+
+    </div>
+
+
+    <input type="hidden" name="matchHistory" value="X" id="id_testingHistory"/>
+
+
+
+
+
+
+{% endblock %}

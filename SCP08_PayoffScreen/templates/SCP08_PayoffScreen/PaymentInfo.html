@@ -1,0 +1,44 @@
+{% extends "SCP08_PayoffScreen/myPage.html" %}
+{% load staticfiles otree %}
+
+{% block title %}
+    Earnings
+{% endblock %}
+
+{% block scripts %}
+
+    <!-- define a script -->
+    <script>
+
+    </script>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+        <p align="justify">
+            You have now played {{ Matches }} matches. Your earnings in these matches is {{ MatchesPayoff }}.
+        </p>
+
+        <p align="justify">
+            You have also responded to the two additional questions regarding the chances that the other participant
+            selected each of the plans. Your earnings for these questions is {{ BeliefsPayoff }}.
+        </p>
+
+        <p align="justify">
+            Thus, your total earnings for today's experiment are {{ TotalPayoff }} (not including the show-up fee of $5).
+        </p>
+
+        <p align="justify">
+            Next, we ask that you complete a short post-experimental survey.
+        </p>
+
+
+    <button class="otree-btn-next btn btn-primary" id="NextButton" style="display:inline-block;">Next</button>
+
+{#    {{ form.total.errors }}#}
+
+{% endblock %}
+

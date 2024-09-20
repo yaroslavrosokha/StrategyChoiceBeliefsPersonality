@@ -1,0 +1,55 @@
+{% extends 'otree/WaitPage.html' %}
+{% load static otree %}
+{% block title %}{{ title_text }}{% endblock %}
+
+{% block content %}
+    {{ body_text }}
+{% endblock %}
+
+{% block app_styles %}
+
+<style type="text/css">
+
+
+.otree-wait-page__title {
+    background: white;
+    font-family: Proxima Nova;
+    text-align: center;
+}
+
+
+
+
+
+</style>
+
+{% endblock %}
+
+
+
+
+{% block app_scripts %}
+
+<script>
+            document.addEventListener('keydown', function(event) {
+  if ((event.code == 'KeyR' || event.code == 'KeyF' || event.code == 'KeyS')  && (event.ctrlKey || event.metaKey)) {
+    event.preventDefault();
+  }
+
+  if ((event.code == 'F5')) {
+    event.preventDefault();
+  }
+
+  if ((event.code == 'ArrowLeft' || event.code == 'ArrowRight') && (event.code=='AltLeft' || event.code=='altRight' || event.altKey || event.metaKey) ) {
+    event.preventDefault();
+  }
+
+    if ((event.code == 'Tab')) {
+    event.preventDefault();
+  }
+
+});
+
+</script>
+
+{% endblock %}

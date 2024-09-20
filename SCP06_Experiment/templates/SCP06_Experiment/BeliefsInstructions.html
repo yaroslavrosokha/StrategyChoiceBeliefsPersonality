@@ -1,0 +1,88 @@
+{% extends "SCP06_Experiment/myPage.html" %}
+{% load staticfiles otree %}
+
+
+{% block scripts %}
+
+    <!-- define a script -->
+    <script>
+
+    </script>
+
+{% endblock %}
+
+
+{% block title %}
+
+            Question Before We Implement Your Plan in Match # {{ player.round_number }}
+
+{% endblock %}
+
+{% block content %}
+    <div class="card bg-light instructions">
+    <div class="card-body1">
+        <p>
+            Before we implement your plan in Match #{{ player.round_number }}, <strong style="font-weight: bold;color: blue;">on the next screen we will
+            ask you what you think the chances are that the other participant chooses each of the ten plans.</strong><br/>
+        </p>
+
+        <p>
+            In other words, we will ask you  how many times out of 100 you think the other participant
+            in Match #{{ player.round_number }} would choose each of the ten plans.<br/>
+        </p>
+
+        <p>
+            Of course, the other participant chooses his/her plan for Match #{{ player.round_number }}
+            only once (just like you), not 100 times. But you can think of the question as a way of
+            asking how likely the other participant is to choose each of the plans.<br/>
+        </p>
+
+        <p>
+            You will be paid according to the accuracy of your answer.
+            <u>You will make the most money on average if you answer truthfully what you think the chances
+        are that the other participant chooses each of the plans.</u><br/>
+        </p>
+
+        <p>
+            You will not be paid for your answer until the end of the experiment.
+            Your answer will not be shown to any other participant. Your answer will not affect the experiment in any way.<br/>
+        </p>
+
+        <p>
+            You do not need to understand the details of how the payment works.
+            If you are interested, the details follow below. If you are not interested,
+            you can stop reading this screen now.<br/>
+        </p>
+
+        <p><i>Details of how the payment works:<br/></p>
+        <p style="left: 5%;width: 90%;position: relative;">
+            For this task, you start with 400 points and you will then be penalized for inaccuracy.
+            The total penalty can never be more than 400 points.
+            Your payment for this task will be 400 points minus the total penalty.<br/><br/>
+
+            For each of the ten possible plans, the penalty will be calculated as follows.<br/>
+            <ol style="left: 5%;width: 90%;position: relative;">
+            <li>If that plan is chosen by the other participant, then the penalty will be
+            smaller the higher your answer about the chances that the other participant
+            chooses that plan. In that case, the penalty is calculated as follows:<br/>
+
+                <p align="center">(100 &minus; Your Answer) &times; (100 &minus; Your Answer) &times; (0.02 points)</p></li>
+
+            <li>If that plan is not chosen by the other participant,
+            then the penalty will be smaller the lower your answer about the chances
+            that the other participant chooses that plan. In that case,
+            the penalty is calculated as follows:<br/>
+
+                <p align="center">(Your Answer) &times; (Your Answer) &times; (0.02 points)</p></li>
+            </ol>
+        </p>
+</i>
+
+                 <p style="text-align: center"><br/>
+            <button class="otree-btn-next btn btn-primary" id="NextButton" style="display:inline-block;">Next</button>
+        </p>
+
+    </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends "SCP05_TestingInstructions/myPage.html" %}
+{% load staticfiles otree %}
+
+
+{% block scripts %}
+
+    <!-- define a script -->
+    <script>
+
+    {#var timeInMinutes = 2;#}
+    {#var currentTime = Date.parse(new Date());#}
+    {#var deadline = new Date(currentTime + timeInMinutes*60*1000);#}
+    {#var minutesSpan = document.getElementById('id_minutes');#}
+    {#var secondsSpan = document.getElementById('id_seconds');#}
+    {##}
+    {##}
+    {#function updateClock() {#}
+    {#    var t = getTimeRemaining(deadline);#}
+    {#    minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);#}
+    {#    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);#}
+    {#    return t;#}
+    {#}#}
+    {##}
+    {#function getTimeRemaining(endtime) {#}
+    {#    var t = Date.parse(endtime) - Date.parse(new Date());#}
+    {#    var seconds = Math.floor((t / 1000) % 60);#}
+    {#    var minutes = Math.floor((t / 1000 / 60) % 60);#}
+    {#    return {#}
+    {#        'total': t,#}
+    {#        'minutes': minutes,#}
+    {#        'seconds': seconds#}
+    {#    };#}
+    {#}#}
+    {##}
+    {#function initializeClock() {#}
+    {#    var timeinterval = setInterval(function () {#}
+    {#        var t = updateClock();#}
+    {#        if(t.total<=0){}#}
+    {#    }, 1000);#}
+    {#}#}
+    {##}
+    {#initializeClock();#}
+
+    </script>
+
+{% endblock %}
+
+
+{% block title %}
+    <div class="row">
+        <div class="column" style="background-color:white;">
+            Plans
+        </div>
+        <div class="column" style="background-color:white;">
+            Review Plans
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+{##}
+{#<div id="clockdiv" style="position: absolute; top: 10px; right: 10px; color: red;">#}
+{#    <span id="id_minutes">02</span>:<span id="id_seconds">00</span>#}
+{#</div>#}
+
+
+ <div class="row" style="background-color:white;">
+
+    <div class="column" style="background-color:white;">
+
+        <p>When you are paired with another participant for a match, you will select a plan that will make your choices for you in every round. The other participant will also select a plan.</p>
+        <p>There are 10 possible plans.</p>
+
+
+
+            <table class="table" id="tabA">
+                <tr style="background-color: #eaffeb">
+                    <td width="30px" style="font-weight:bold; vertical-align: middle" >Plans</td>
+                    <td align="center" id="id_myPlan"></td>
+
+                </tr>
+                {% for number,strategy in strategies %}
+                <tr>
+                    <td align="center" style="font-weight: bold">#{{ number }}</td>
+                    <td align="center"><strong style="color: #000000; font-size: 16px; font-weight: normal"> {{ strategy }}</strong></td>
+
+                </tr>
+                {% endfor %}
+                <tr style="background-color: #eaffeb">
+                    <td width="30px" style="font-weight:bold; vertical-align: middle" ></td>
+                    <td align="center"></td>
+
+                </tr>
+            </table>
+
+     </div>
+
+     <div class="column" style="background-color:white;">
+
+         <p>You have 3 minutes to review the table presenting the 10 plans.</p>
+         <p>You will have access to this table throughout the experiment.</p>
+
+        <p style="text-align: center"><br/>
+            <button class="otree-btn-next btn btn-primary" id="NextButton" style="display:none;">Next</button>
+        </p>
+     </div>
+
+</div>
+
+
+{% endblock %}

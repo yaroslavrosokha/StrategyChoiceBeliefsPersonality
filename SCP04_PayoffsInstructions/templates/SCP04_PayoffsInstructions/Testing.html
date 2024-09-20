@@ -1,0 +1,192 @@
+{% extends "SCP04_PayoffsInstructions/myPage.html" %}
+{% load staticfiles otree %}
+
+
+{% block scripts %}
+
+    <!-- define a script -->
+    <script>
+
+
+
+
+    </script>
+
+{% endblock %}
+
+
+{% block title %}
+<div class="row">
+        <div class="column" style="background-color:white;">
+            Practice Matches
+        </div>
+        <div class="column" style="background-color:white;">
+            Practice Match #{{ player.round_number }} of {{ Constants.num_rounds }}<br/>
+        </div>
+</div>
+{% endblock %}
+
+{% block content %}
+
+
+
+    <div class="row">
+        <div class="column" style="background-color:white;">
+
+            <p>To get some practice with the choices, you will now play {{ Constants.num_rounds }} practice matches.</p>
+            <p>In these practice matches you are not yet matched with another participant and you will not earn any money.</p>
+            <p>In these practice matches you will make choices both for yourself and for the other participant.</p>
+
+        </div>
+        <div class="column" style="background-color:white;">
+
+            <p>The table below describes the payoffs from the four pairs of choices that are possible in each round of a match.</p>
+            <div class="payoffbox" id="id_payoffbox">
+                <div class="myChoiceLabel" style="top: 0px;width: 220px;">My Choice in Round X</div>
+                <div class="otherChoiceLabel" style="top: 50px;width: 220px;">Other's Choice in Round X</div>
+                <div class="myChoiceLabel"  style="width: 220px;">My Payoff in Round X</div>
+                <div class="otherChoiceLabel" style="width: 220px;">Other's Payoff in Round X</div>
+
+                <div class="payoffDetail" style="top: 0px;left: 230px;background-color: #f9ff87">A</div>
+                <div class="payoffDetail" style="top: 50px;left: 230px;background-color: #f9ff87">A</div>
+
+                <div class="payoffDetail" style="top: 0px;left: 290px;background-color: #f9ff87">A</div>
+                <div class="payoffDetail" style="top: 50px;left: 290px;background-color: #8ec9ff">B</div>
+
+                <div class="payoffDetail" style="top: 0px;left: 350px;background-color: #8ec9ff">B</div>
+                <div class="payoffDetail" style="top: 50px;left: 350px;background-color: #f9ff87">A</div>
+
+                <div class="payoffDetail" style="top: 0px;left: 410px;background-color: #8ec9ff">B</div>
+                <div class="payoffDetail" style="top: 50px;left: 410px;background-color: #8ec9ff">B</div>
+
+
+                <div class="payoffDetail" style="top: 100px;left: 230px">{{ R }}</div>
+                <div class="payoffDetail" style="top: 150px;left: 230px">{{ R }}</div>
+
+                <div class="payoffDetail" style="top: 100px;left: 290px">12</div>
+                <div class="payoffDetail" style="top: 150px;left: 290px">50</div>
+
+                <div class="payoffDetail" style="top: 100px;left: 350px">50</div>
+                <div class="payoffDetail" style="top: 150px;left: 350px">12</div>
+
+                <div class="payoffDetail" style="top: 100px;left: 410px">25</div>
+                <div class="payoffDetail" style="top: 150px;left: 410px">25</div>
+            </div>
+
+            <br/>
+            <p>Remember that at the end of each round the computer rolls a four-sided fair dice. The match ends when the computer rolls a 4.</p>
+
+            <div class="outerbox" id="id_outerbox" style="display:block;">
+                                         <button class="otree-btn-next btn btn-primary" id="diceRollButton" type="button"
+                        style="left:5px; top:2px; height: 21px; width: 140px; line-height: 15px; padding: 3px; background-color: #1e8f27; border-color: #1e8f27;position: absolute; display: none;z-index: 5"
+                        onclick="rollDice()">Roll Dice</button>
+                <div class="randomNumLabel">Dice Roll</div>
+                <div class="periodLabel">Round</div>
+                <div class="myChoiceLabel">My Choice</div>
+                <div class="otherChoiceLabel">Other's Choice</div>
+                <div class="myPayoffLabel">My Payoff</div>
+                <div class="otherPayoffLabel">Other's Payoff</div>
+                <div class="scrollLabel" id="scrollLabel">Scroll Bar</div>
+                <div class="innerbox" id="id_innerbox">
+
+                </div>
+            </div>
+
+
+{#            <p style="text-align: left" id="Information1">Each match will be presented using a table with six rows:#}
+{#                <ul id="Information3">#}
+{#                    <li>Dice Roll -- computerized roll of a dice to determine whether the match continues.#}
+{#                    Specifically, if 4 is rolled then the match stops, if 1, 2, or 3 is rolled then the match#}
+{#                    continues.</li>#}
+{#                    <li>Round -- round number in the current match.</li>#}
+{#                    <li>My Choice -- your choice in the corresponding round.</li>#}
+{#                    <li>Other's Choice -- the choice by the participant that you are#}
+{#                        matched with in the corresponding round.</li>#}
+{#                    <li>My Payoff -- number of ECUs received by you given your choice and the#}
+{#                        choice by the participant that you are matched with in the corresponding round.</li>#}
+{#                    <li>Other's Payoff -- number of ECUs received by the participant that you are matched with,#}
+{#                        given your choice and the#}
+{#                        choice by the participant that you are matched with in the corresponding round.#}
+{#                    </li>#}
+{#                </ul>#}
+{#            </p>#}
+{#            <p id="Information2">#}
+{#                To get some practice with the decisions, you will now play 5 matches. However,#}
+{#                instead of being matched with another participant, you will make decisions for both -- you#}
+{#                and the other participant. Your compensation will not depend on the choices you make in the practice#}
+{#                matches.#}
+{#            </p>#}
+
+            <div class="row" style="background-color:#fafaff;display: none;text-align: center" id="ManualChoices">
+
+                <div class="column" style="background-color:#ffffff;text-align: center">
+                    My Choice in Round <strong id="myChoiceRound">1</strong>
+                    <div class="row" style="background-color:#ffffff;">
+                        <div class="column" style="background-color:#ffffff;text-align: center; align-content: center; position: relative; left:5%">
+                            <button class="otree-btn-next btn btn-primary" id="myChoiceA" type="button"
+                            style="height: 50px; width: 50px; line-height: 19px; padding: 3px; background-color: #f9ff87; border-color: green; border-width: 2px ; color: black"
+                            onclick="simulateRound('myChoice',0)">A</button>
+{#                            <div class="payoffDetail" id="myChoiceA" onclick="simulateRound('myChoice',0)" style="left: 50px;background-color: #f9ff87; position: relative">A</div>#}
+                        </div>
+                        <div class="column" style="background-color:#ffffff;text-align: center; align-content: center; position: relative; right:5%">
+                            <button class="otree-btn-next btn btn-primary" id="myChoiceB" type="button"
+                            style="height: 50px; width: 50px; line-height: 19px; padding: 3px; background-color: #8ec9ff; border-color: green; border-width: 2px ; color: black"
+                            onclick="simulateRound('myChoice',1)">B</button>
+{#                            <div class="payoffDetail" id="myChoiceB" onclick="simulateRound('myChoice',1)" style="left: 50px;background-color: #8ec9ff; position: relative">B</div>#}
+                        </div>
+                    </div>
+                </div>
+                <div class="column" style="background-color:#ffffff;text-align: center">
+                    Other's Choice in Round <strong id="otherChoiceRound">1</strong>
+                    <div class="row" style="background-color:#ffffff;">
+                        <div class="column" style="background-color:#ffffff;text-align: center; align-content: center; position: relative; left:5%">
+                            <button class="otree-btn-next btn btn-primary" id="otherChoiceA" type="button"
+                            style="height: 50px; width: 50px; line-height: 19px; padding: 3px; background-color: #f9ff87; border-color: green; border-width: 2px ; color: black"
+                            onclick="simulateRound('otherChoice',0)">A</button>
+{#                            <div class="payoffDetail" id="otherChoiceA" onclick="simulateRound('otherChoice',0)" style="left: 50px;background-color: #f9ff87; position: relative">A</div>#}
+                        </div>
+                        <div class="column" style="background-color:#ffffff;text-align: center; align-content: center; position: relative; right:5%">
+                            <button class="otree-btn-next btn btn-primary" id="otherChoiceB" type="button"
+                            style="height: 50px; width: 50px; line-height: 19px; padding: 3px; background-color: #8ec9ff; border-color: green; border-width: 2px ; color: black"
+                            onclick="simulateRound('otherChoice',1)">B</button>
+{#                            <div class="payoffDetail" id="otherChoiceB" onclick="simulateRound('otherChoice',1)" style="left: 50px;background-color: #8ec9ff; position: relative">B</div>#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+             <p style="text-align: left;display: none" id="matchSummary">
+                 <strong style="font-weight: normal; text-decoration: underline;">Practice Match #{{ player.round_number }} Summary</strong> <br/>
+             Match duration: <strong id="summaryRounds">X</strong> rounds<br/>
+             My total payoff: <strong id="summaryMyPayoff">X</strong> points<br/>
+             Other's total payoff: <strong id="summaryOtherPayoff">X</strong> points<br/>
+             </p>
+            <br/>
+            <p style="text-align: center">
+                <button class="otree-btn-next btn btn-primary" id="startMatchButton" type="button"
+                style="background-color: #1e8f27; border-color: #1e8f27;"
+            onclick="startMatch()">Start Practice Match #{{ player.round_number }}</button>
+            </p>
+
+
+
+        </div>
+    </div>
+
+    <p style="text-align: center"><br/>
+        <button class="otree-btn-next btn btn-primary" id="NextButton" style="display:none;">Next</button>
+    </p>
+
+    <input type="hidden" name="myHistory" value="" id="id_myTestingHistory"/>
+    <input type="hidden" name="otherHistory" value="" id="id_otherTestingHistory"/>
+
+
+
+
+
+{% endblock %}

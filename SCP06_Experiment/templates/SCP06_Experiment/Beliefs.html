@@ -1,0 +1,180 @@
+{% extends "SCP06_Experiment/myPage.html" %}
+{% load staticfiles otree %}
+
+
+{% block scripts %}
+
+    <!-- define a script -->
+    <script>
+
+    var arrayNumbers=[];
+    for(var iN=0;iN<=100;iN++){
+        arrayNumbers.push(iN.toString());
+    }
+
+    function finalCheck(){
+        if(calcSum()){
+            var entries = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1];
+            for (var i=1;i<=10;i++) {
+                var entry = document.getElementById('quantity_' + i.toFixed(0));
+                entries[MyVariables.order[i-1]-1] = parseInt(entry.value);
+            }
+
+            var bel = document.getElementById('id_beliefs');
+            bel.value=","+entries.join(",");
+
+            document.getElementById("form").submit();
+        }
+    }
+
+    function checkEntries(){
+        updateText("sumMessage","")
+    }
+
+    function calcSum(){
+        var sum = 0;
+        var checkAll = true;
+        for (var i=1;i<=10;i++){
+            var entry = document.getElementById('quantity_'+i.toFixed(0));
+            console.log("Entry:",i,entry.value);
+            console.log("Includes? ",arrayNumbers.includes(entry.value));
+
+            if(arrayNumbers.includes(entry.value)) {
+                sum += parseInt(entry.value);
+            }else{
+                sum += NaN;
+            }
+            {#entry.value=parseInt(entry.value);#}
+            {#if(parseInt(entry.value)<0 || parseInt(entry.value)>100){entry.value=""}#}
+
+            if(arrayNumbers.includes(entry.value)){
+                entry.style.backgroundColor = "#dcffd1";
+            }else {
+                entry.style.backgroundColor="#ffa7a3";
+                entry.value="";
+                checkAll=false;
+            }
+        }
+        console.log(sum);
+        if(isNaN(sum)){
+            hide("NextButton");
+            updateText("sumMessage","Fill-in all fields");
+            return false;
+        }else{
+            if(sum!=100){
+                hide("NextButton");
+                updateText("sumMessage",sum.toFixed(0));
+                return false;
+            }else{
+                showInline("NextButton");
+                updateText("sumMessage",sum.toFixed(0));
+                return true;
+            }
+        }
+    }
+
+		function noenter(e) {
+			//1. window is an object that represents an open window in a browser.
+			//2. event is an action that can be detected by javascript.
+			//Sometimes we want to execute a JavaScript when an event
+			//occurs, such as when a user clicks a button.
+			//3. Internet Explorer doesn't pass event to handler.
+			//Instead you can use window.event object which is being
+			//updated immediately after the event was fired.
+			//So the crossbrowser way to handle events:
+			//4. window is an object, event is a property that contains the
+			//last event that took place.
+			//5. The followig code means e argument is optional. So if you call the method
+			//with no arguments it will use a default value of "window.event"
+		    e = e || window.event;
+		    var key = e.keyCode || e.charCode;
+		    //alert('e.type: ' + e.type + '; key: ' + key);
+		    return key !== 13;
+		}
+
+		$(document).keydown(function(e){ //when any key is pressed
+
+if(e.keyCode == 27||e.keyCode ==18) { // if the key is CTRL or ALT
+
+e.preventDefault(); } });
+
+    </script>
+
+{% endblock %}
+
+
+{% block title %}
+
+    Question Before We Implement Your Plan in Match # {{ player.round_number }}
+
+{% endblock %}
+
+{% block content %}
+
+            <p style="text-align: center">
+            </p>
+
+<div class="row">
+    <div class="column" style="background-color:white;">
+
+
+
+            <table class="table" id="tabA">
+                <tr style="background-color: #eaffeb">
+                    <td width="30px" style="font-weight:bold; vertical-align: middle" >Plans</td>
+                    <td align="center" id="id_myPlan"></td>
+                    <td width="150px" style="text-align: center">Other's Plan (Chance, %)</td>
+                </tr>
+                {% for number,strategy in strategies %}
+                <tr>
+                    <td align="center" style="font-weight: bold">#{{ number }}</td>
+                    <td align="center"><strong style="color: #000000; font-size: 16px; font-weight: normal"> {{ strategy }}</strong></td>
+                    <td style="vertical-align: middle; text-align: center">
+                        <input type="number" name="quantity_{{ number }}" onkeypress="return noenter(event)" id="quantity_{{ number }}"  min="0" max="100" step="1" onclick="checkEntries();">
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr style="background-color: #eaffeb">
+                        <td width="30px" style="font-weight:bold; vertical-align: middle" ></td>
+                        <td align="right" id="my_check"  style="font-weight:bold; vertical-align: middle"> The sum must add up to 100:<br/><button type="button" class="otree-btn-next btn btn-primary" id="CheckSumButton" onclick="calcSum()"
+                                    style="display:inline-block;background-color: #1e8f27;border-color: #1e8f27; height: 25px; line-height: 19px; padding: 3px;">Check Sum</button></td>
+                        <td width="150px" style="text-align: center;vertical-align: middle;">
+
+                            <strong id="sumMessage"></strong>
+                        </td>
+                </tr>
+            </table>
+
+
+    </div>
+
+    <div class="column" style="background-color:white;">
+
+        <p>
+        <strong style="font-weight: bold;color: blue;">What do you think the chances are that the
+            other participant chooses each of the ten plans?</strong><br/><br/>
+
+        In other words, how many times out of 100 do you think the other participant in Match #{{ player.round_number }} would choose each of the ten plans?
+        <ul>
+        <li>Please use only whole numbers for your answer.</li>
+        <li>You will be paid according to the accuracy of your answer.
+            <u>You will make the most money on average if you answer truthfully
+                what you think the chances are that the other participant chooses each of the plans</u>.</li>
+        <li>You will not be paid for your answer until the end of the experiment.</li>
+        <li>Your answer will not be shown to any other participant.</li>
+        <li>Your answer will not affect the experiment in any way.</li>
+        </ul>
+        </p>
+
+        <p style="text-align: center"><br/>
+            <button type="button" class="otree-btn-next btn btn-primary" id="NextButton" onclick="finalCheck()" style="display:none;background-color: #1e8f27;border-color: #1e8f27;">Submit</button>
+        </p>
+    </div>
+
+ </div>
+
+
+    <input type="hidden" name="belief" value="" id="id_beliefs"/>
+
+
+{% endblock %}
